@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace BikeShopApp.Math
+namespace BikeShopApp.Maths
 {
     public class TwiceConverter : IValueConverter
     {

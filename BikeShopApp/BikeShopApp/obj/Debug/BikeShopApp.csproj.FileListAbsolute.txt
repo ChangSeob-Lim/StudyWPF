@@ -22,3 +22,6 @@ D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\Menu.g.cs
 D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\Menu.baml
 D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\Discussion.g.cs
 D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\Discussion.baml
+D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\ProductManagement.g.cs
+D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\ProductManagement.baml
+D:\PKNU2020\StudyWPF\BikeShopApp\BikeShopApp\obj\Debug\App.baml

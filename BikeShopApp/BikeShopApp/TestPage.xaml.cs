@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,15 +31,30 @@ namespace BikeShopApp
 
         private void InitListBox()
         {
+            Random rand = new Random();
+            string[] names = { "Hugo", "Ted", "Ashley", "Jeff", "Dave", "Allen" };
+
             List<Car> lists = new List<Car>();
             for (int i = 0; i < 10; i++)
             {
+                byte red = (byte)(i % 3 == 0 ? 255 : (i * 50) % 255);
+                byte green = (byte)(i % 4 == 0 ? 255 : (i * 40) % 255);
+                byte blue = (byte)(i % 5 == 0 ? 255 : (i * 70) % 255);
+                int index = rand.Next(names.Length);
+                
                 lists.Add(new Car()
                 {
-                    Speed = i * 10
+                    Speed = i * 20,
+                    Color = Color.FromRgb(red, green, blue),
+                    Driver = new Human{
+                        Name = names[index],
+                        HasDrivingLicense = true
+                    }
                 });
             }
-            ListCar.DataContext = lists; // ListCar에서만 사용가능
+            //ListCar.DataContext = lists; // ListCar에서만 사용가능
+            //ComboCar.DataContext = lists;
+            this.DataContext = lists;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

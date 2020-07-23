@@ -21,12 +21,12 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0" Grid.Column="0" 
-                Background="Transparent" BorderThickness="0" Margin="5" HorizontalAlignment="Left" Width="30" 
+                Background="Transparent" BorderThickness="0" Margin="10" HorizontalAlignment="Left" Width="15" Height="15"
                 Click="Button_Click"/>
         <Button x:Name="BtnProduct" 
                 Grid.Row="1" Grid.Column="0" 
                 Content="Product" FontSize="30" 
-                Margin="20"/>
+                Margin="20" Click="BtnProduct_Click"/>
         <Button x:Name="BtnLiveSupport" 
                 Grid.Row="1" Grid.Column="1" 
                 Content="Live Support" FontSize="30" 
@@ -40,5 +40,6 @@
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
                    Text="Bike Shop" TextWrapping="Wrap" FontSize="40" FontFamily="Impact" TextAlignment="Center" FontStyle="Oblique" 
                    Margin="10" VerticalAlignment="Center"/>
+        <!--<Button Grid.Row="2" Grid.Column="2" Content="{StaticResource button}" Background="{StaticResource accentBrush}" />-->
     </Grid>
 </Page>
