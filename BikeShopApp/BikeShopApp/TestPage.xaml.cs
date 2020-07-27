@@ -78,5 +78,10 @@ namespace BikeShopApp
 
             //this.DataContext = car; // TestPage에서 전부 사용 가능
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("HEll World!");
+        }
     }
 }

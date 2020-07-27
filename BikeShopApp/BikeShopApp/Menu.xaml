@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:BikeShopApp"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Menu">
+      Title="Menu" Background="{StaticResource Pknu_BackGround}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,21 +21,23 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0" Grid.Column="0" 
-                Background="Transparent" BorderThickness="0" Margin="10" HorizontalAlignment="Left" Width="15" Height="15"
+                Background="Transparent" BorderThickness="0" Margin="10" HorizontalAlignment="Left" 
+                Width="15" Height="15"
                 Click="Button_Click"/>
         <Button x:Name="BtnProduct" 
                 Grid.Row="1" Grid.Column="0" 
-                Content="Product" FontSize="30" 
-                Margin="20" Click="BtnProduct_Click"/>
+                Content="Product" Style="{StaticResource Pknu_ShadowButton}" 
+                Margin="20" FontSize="30"
+                Click="BtnProduct_Click"/>
         <Button x:Name="BtnLiveSupport" 
                 Grid.Row="1" Grid.Column="1" 
-                Content="Live Support" FontSize="30" 
-                Margin="20" 
+                Content="Live Support" Style="{StaticResource Pknu_ShadowButton}" 
+                Margin="20" FontSize="30"
                 Click="BtnLiveSupport_Click"/>
         <Button x:Name="BtnEmailSupport" 
                 Grid.Row="1" Grid.Column="2" 
-                Content="Email Support" FontSize="30" 
-                Margin="20" 
+                Content="Email Support" Style="{StaticResource Pknu_ShadowButton}" 
+                Margin="20" FontSize="30"
                 Click="BtnEmailSupport_Click"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
                    Text="Bike Shop" TextWrapping="Wrap" FontSize="40" FontFamily="Impact" TextAlignment="Center" FontStyle="Oblique" 

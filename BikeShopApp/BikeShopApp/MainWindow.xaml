@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BikeShopApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{StaticResource PKNU_Title}" Height="{StaticResource Height}" Width="{StaticResource Width}">
     <Grid>
         <Frame x:Name="MainFrame" Source="/BikeShopApp;Component/Menu.xaml" NavigationUIVisibility="Visible"/>
     </Grid>
