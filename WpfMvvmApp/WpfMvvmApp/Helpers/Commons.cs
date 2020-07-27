@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WpfMvvmApp.Helpers
@@ -10,18 +11,18 @@ namespace WpfMvvmApp.Helpers
     {
         public static bool IsValidEmail(string email)
         {
-            string[] parts = email.Split('@');
-            // @로 이메일 자르기 -> 없거나 개수가 다르면 잘못된 값
-            if (parts.Length != 2)
+            //return Regex.IsMatch(email, @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?");
+            string[] parts = email.Split('@'); // @로 이메일 자르기 -> 없거나 개수가 다르면 잘못된 값
+
+            if (parts.Length != 2) // 뒷부분에 .이 들어간 제대로 된 이메일 주소인지 확인
                 return false;
-            // 뒷부분에 .이 들어간 제대로 된 이메일 주소인지 확인
+
             return (parts[1].Split('.').Length >= 2);
         }
 
         public static int CalcAge(DateTime date)
         {
-            // 나이 계산
-            int age;
+            int age; // 나이 계산
             DateTime now = DateTime.Now;
             // 만 나이로 계산
             if (now.Month <= date.Month && now.Day < date.Day) // 생일 안지남
