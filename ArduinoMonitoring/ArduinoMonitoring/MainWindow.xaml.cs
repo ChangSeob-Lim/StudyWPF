@@ -1,5 +1,7 @@
-﻿using MahApps.Metro.Controls;
+﻿using InteractiveDataDisplay.WPF;
+using MahApps.Metro.Controls;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Cms;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -11,11 +13,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ArduinoMonitoring
 {
@@ -34,46 +38,33 @@ namespace ArduinoMonitoring
 
         public bool IsSimulation { get; set; }
 
-        Timer timer = new Timer();
+        DispatcherTimer timer = new DispatcherTimer();
         Random rand = new Random();
+        
+        List<int> timeValue = new List<int>();
+        List<int> photoValue = new List<int>();
 
+        public static RoutedCommand MyCommand_AltF4 = new RoutedCommand();
+        public static RoutedCommand MyCommand_AltS = new RoutedCommand();
+        public static RoutedCommand MyCommand_AltT = new RoutedCommand();
+        
         public MainWindow()
         {
             InitializeComponent();
             InitControls();
-            //InitChart();
+            MakeShortcut();
         }
 
-        //private void InitChart()
-        //{
-        //    ChtSensorValues.ChartAreas.Clear();
-        //    ChtSensorValues.ChartAreas.Add("sensor");
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.Minimum = 0;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.Maximum = xCount;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.Interval = xCount / 4;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.MajorGrid.LineColor = Color.White;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.ScaleView.Zoomable = true;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisX.ScrollBar.ButtonColor = Color.LightSteelBlue;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisY.Minimum = 0;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisY.Maximum = maxPhotoVal + 1;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisY.Interval = xCount;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisY.MajorGrid.LineColor = Color.White;
-        //    ChtSensorValues.ChartAreas["sensor"].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+        private void MakeShortcut()
+        {
+            MyCommand_AltF4.InputGestures.Add(new KeyGesture(Key.F4, ModifierKeys.Alt));
+            MyCommand_AltS.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Alt));
+            MyCommand_AltT.InputGestures.Add(new KeyGesture(Key.T, ModifierKeys.Alt));
 
-        //    ChtSensorValues.ChartAreas["sensor"].BackColor = Color.DarkBlue;
-        //    ChtSensorValues.ChartAreas["sensor"].CursorX.AutoScroll = true;
-
-        //    ChtSensorValues.Series.Clear();
-        //    ChtSensorValues.Series.Add("PhotoRegistor");
-        //    ChtSensorValues.Series["PhotoRegistor"].ChartType = SeriesChartType.Line;
-        //    ChtSensorValues.Series["PhotoRegistor"].Color = Color.LightGreen;
-        //    ChtSensorValues.Series["PhotoRegistor"].BorderWidth = 3;
-
-        //    if (ChtSensorValues.Legends.Count > 0)
-        //        ChtSensorValues.Legends.RemoveAt(0);
-        //}
+            CommandBindings.Add(new CommandBinding(MyCommand_AltF4, MenuSubItemExit_Click));
+            CommandBindings.Add(new CommandBinding(MyCommand_AltS, MenuSubItemStart_Click));
+            CommandBindings.Add(new CommandBinding(MyCommand_AltT, MenuSubItemStop_Click));
+        }
 
         private void InitControls()
         {
@@ -86,7 +77,7 @@ namespace ArduinoMonitoring
             PgbPhotoRegistor.Minimum = 0;
             PgbPhotoRegistor.Maximum = maxPhotoVal;
 
-            //BtnConnect.Enabled = BtnDisconnect.Enabled = false;
+            BtnConnect.IsEnabled = BtnDisconnect.IsEnabled = false;
         }
 
         private void CboSerialPort_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -95,7 +86,7 @@ namespace ArduinoMonitoring
             serial = new SerialPort(portName);
             serial.DataReceived += Serial_DataReceived;
 
-            //BtnConnect.Enabled = true;
+            BtnConnect.IsEnabled = true;
         }
 
         private void Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -122,30 +113,23 @@ namespace ArduinoMonitoring
 
                 string item = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{v}";
 
-                //RtbLog.AppendText($"{item}\n");
-                //RtbLog.ScrollToCaret();
+                TxtLog.AppendText($"{item}\n");
+                TxtLog.ScrollToEnd();
 
-                //ChtSensorValues.Series[0].Points.Add(v);
+                timeValue.Add(photoDatas.Count);
+                photoValue.Add(v);
 
-                //ChtSensorValues.ChartAreas[0].AxisX.Minimum = 0;
-                //ChtSensorValues.ChartAreas[0].AxisX.Maximum =
-                //    (photoDatas.Count >= xCount) ? photoDatas.Count : xCount;
+                PhotoGraph.Plot(timeValue, photoValue);
 
-                //if (photoDatas.Count > xCount)
-                //    ChtSensorValues.ChartAreas[0].AxisX.ScaleView.Zoom(
-                //        photoDatas.Count - xCount, photoDatas.Count);
-                //else
-                //    ChtSensorValues.ChartAreas[0].AxisX.ScaleView.Zoom(0, xCount);
-
-                //if (IsSimulation == false)
-                //    BtnPortValue.Text = $"{serial.PortName}\n{sVal}";
-                //else
-                //    BtnPortValue.Text = $"{sVal}";
+                if (IsSimulation == false)
+                    BtnPortValue.Content = $"{serial.PortName}\n{sVal}";
+                else
+                    BtnPortValue.Content = $"{sVal}";
             }
             catch (Exception ex)
             {
-                //RtbLog.AppendText($"Error : {ex.Message}\n");
-                //RtbLog.ScrollToCaret();
+                TxtLog.AppendText($"Error : {ex.Message}\n");
+                TxtLog.ScrollToEnd();
             }
         }
 
@@ -176,69 +160,71 @@ namespace ArduinoMonitoring
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            serial.Open();
+            if (serial != null)
+                serial.Open();
             TxtConnectionTime.Text = $"연결시간 : {DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}";
-            //BtnConnect.Enabled = false;
-            //BtnDisconnect.Enabled = true;
+            BtnConnect.IsEnabled = false;
+            BtnDisconnect.IsEnabled = true;
         }
 
-        //private void BtnDisconnect_Click(object sender, EventArgs e)
-        //{
-        //    serial.Close();
-        //    BtnConnect.Enabled = true;
-        //    BtnDisconnect.Enabled = false;
-        //}
+        private void BtnDisconnect_Click(object sender, EventArgs e)
+        {
+            if (serial != null)
+                serial.Close();
+            BtnConnect.IsEnabled = true;
+            BtnDisconnect.IsEnabled = false;
+            BtnPortValue.Content = "PORT";
+        }
 
         //private void BtnViewAll_Click(object sender, EventArgs e)
         //{
-        //    ChtSensorValues.ChartAreas[0].AxisX.Minimum = 0;
-        //    ChtSensorValues.ChartAreas[0].AxisX.Maximum = photoDatas.Count;
-        //    ChtSensorValues.ChartAreas[0].AxisX.ScaleView.Zoom(0, photoDatas.Count);
-        //    ChtSensorValues.ChartAreas[0].AxisX.Interval = photoDatas.Count / 4;
+            
         //}
 
         //private void BtnZoom_Click(object sender, EventArgs e)
         //{
-        //    ChtSensorValues.ChartAreas[0].AxisX.Minimum = 0;
-        //    ChtSensorValues.ChartAreas[0].AxisX.Maximum = photoDatas.Count;
-        //    ChtSensorValues.ChartAreas[0].AxisX.ScaleView.Zoom(photoDatas.Count - xCount, photoDatas.Count);
-        //    ChtSensorValues.ChartAreas[0].AxisX.Interval = photoDatas.Count / 4;
+            
         //}
 
-        //private void MenuSubItemExit_Click(object sender, EventArgs e)
-        //{
-        //    Application.Exit();
-        //}
+        private void MenuSubItemExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        //private void MenuSubItemStart_Click(object sender, EventArgs e)
-        //{
-        //    IsSimulation = true;
-        //    timer.Interval = 1000;
-        //    timer.Tick += Timer_Tick;
-        //    timer.Start();
+        private void MenuSubItemStart_Click(object sender, EventArgs e)
+        {
+            IsSimulation = true;
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
 
-        //    // serial통신 끊기
-        //    BtnDisconnect_Click(sender, e);
-        //}
+            // serial통신 끊기
+            if (serial != null)
+                BtnDisconnect_Click(sender, e);
+        }
 
-        //private void Timer_Tick(object sender, EventArgs e)
-        //{
-        //    ushort value = (ushort)rand.Next(1, 1024);
-        //    DisplayValue(value.ToString());
-        //}
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            ushort value = (ushort)rand.Next(1, 1024);
+            DisplayValue(value.ToString());
+        }
 
-        //private void MenuSubItemStop_Click(object sender, EventArgs e)
-        //{
-        //    timer.Stop();
-        //    IsSimulation = false;
+        private void MenuSubItemStop_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+            IsSimulation = false;
+            BtnPortValue.Content = "PORT";
+            TxtConnectionTime.Text = "";
 
-        //    // serial 통신 재시작
-        //    BtnConnect_Click(sender, e);
-        //}
+            // serial 통신 재시작
+            //if (serial != null)
+            //    BtnConnect_Click(sender, e);
+        }
 
         private void MenuSubItemInfo_Click(object sender, RoutedEventArgs e)
         {
             ThisProgramForm form = new ThisProgramForm();
+            form.WindowStartupLocation = this.WindowStartupLocation;
             form.ShowDialog();
         }
     }

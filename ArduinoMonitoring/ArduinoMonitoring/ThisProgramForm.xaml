@@ -6,7 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:ArduinoMonitoring"
         mc:Ignorable="d"
-        Title="ThisProgramForm" Height="300" Width="600" ResizeMode="NoResize">
+        Title="ThisProgramForm" Height="300" Width="600" ResizeMode="NoResize" KeyDown="MetroWindow_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>

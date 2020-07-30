@@ -17,7 +17,7 @@
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="2.4*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0"/> <!--Height="*"-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -30,11 +30,11 @@
                 <MenuItem Header="열기" InputGestureText="Crtl+O"/>
                 <MenuItem Header="저장" InputGestureText="Crtl+S"/>
                 <Separator/>
-                <MenuItem Header="끝내기" InputGestureText="Alt+F4"/>
+                <MenuItem Header="끝내기" InputGestureText="Alt+F4" Click="MenuSubItemExit_Click"/>
             </MenuItem>
             <MenuItem Header="시뮬레이션">
-                <MenuItem Header="시작" InputGestureText="Alt+S"/>
-                <MenuItem Header="중지" InputGestureText="Alt+T"/>
+                <MenuItem Header="시작" InputGestureText="Alt+S" Click="MenuSubItemStart_Click"/>
+                <MenuItem Header="중지" InputGestureText="Alt+T" Click="MenuSubItemStop_Click"/>
             </MenuItem>
             <MenuItem Header="도움말">
                 <MenuItem Header="정보..." Click="MenuSubItemInfo_Click"/>
@@ -51,13 +51,13 @@
 
                 <GroupBox Grid.Column="0"
                       Header="연결시간">
-                    <TextBox x:Name="TxtConnectionTime" Text="연결시간" TextAlignment="Center"
+                    <TextBox x:Name="TxtConnectionTime" TextAlignment="Center"
                     IsReadOnly="True" Background="WhiteSmoke"
                     Margin="5"/>
                 </GroupBox>
                 <GroupBox Grid.Column="1"
                       Header="연결횟수">
-                    <TextBox x:Name="TxtSensorCount" Text="연결 횟수" TextAlignment="Center"
+                    <TextBox x:Name="TxtSensorCount" TextAlignment="Center"
                     IsReadOnly="True" Background="WhiteSmoke"
                     Margin="5"/>
                 </GroupBox>
@@ -76,7 +76,7 @@
                              Background="WhiteSmoke"
                              Margin="5"/>
                 <TextBlock x:Name="TxtPhotoRegistor" Grid.Row="1" 
-                           Text="0" FontSize=" 16"
+                           FontSize=" 16"
                            VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
             </Grid>
         </GroupBox>
@@ -84,14 +84,9 @@
         <!--데이터 로그-->
         <GroupBox Grid.Row="4" Grid.Column="0"
                   Header="데이터 로그">
-            <RichTextBox Background="WhiteSmoke"
-                         Margin="5">
-                <FlowDocument>
-                    <Paragraph>
-                        This is flow content and you can edit me!
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <TextBox x:Name="TxtLog" Background="WhiteSmoke"
+                     TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"
+                     Margin="5" />
         </GroupBox>
         
         <!--포트-->
@@ -108,17 +103,19 @@
                 <ComboBox x:Name="CboSerialPort" 
                           Grid.Row="0"
                           Background="WhiteSmoke"
-                          Margin="5"/>
+                          Margin="5" SelectionChanged="CboSerialPort_SelectedIndexChanged"/>
                 <Button x:Name="BtnConnect" 
                         Grid.Row="1" 
                         Content="CONNECT"
                         FontSize="20"
                         Margin="5" Click="BtnConnect_Click"/>
-                <Button x:Name="BtnDisconnect" Grid.Row="2" 
+                <Button x:Name="BtnDisconnect" 
+                        Grid.Row="2" 
                         Content="DISONNECT"
                         FontSize="20"
-                        Margin="5"/>
-                <Button Grid.Row="3" 
+                        Margin="5" Click="BtnDisconnect_Click"/>
+                <Button x:Name="BtnPortValue" 
+                        Grid.Row="3" 
                         Content="PORT" 
                         FontSize="30"
                         Margin="5"/>
@@ -131,8 +128,8 @@
             <d3:Chart LeftTitle="Photo Value" BottomTitle="Time"
                       Background="WhiteSmoke" 
                       Margin="5">
-                <d3:LineGraph x:Name="PhotoGraph" Description="Photo Resgistor Value"
-                              Stroke="Blue" StrokeThickness="3" />
+                <d3:LineGraph x:Name="PhotoGraph" 
+                              Stroke="Blue" StrokeThickness="3"/>
             </d3:Chart>
         </GroupBox>
 

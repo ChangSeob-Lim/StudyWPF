@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoMonitoring", "ArduinoMonitoring\ArduinoMonitoring.csproj", "{FD5E2717-1802-467F-951F-904CE994A4AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArdMoni_mvvm", "ArdMoni_mvvm\ArdMoni_mvvm.csproj", "{1FE2E509-96F0-4F49-9924-D35AD003C81F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FD5E2717-1802-467F-951F-904CE994A4AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD5E2717-1802-467F-951F-904CE994A4AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD5E2717-1802-467F-951F-904CE994A4AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
