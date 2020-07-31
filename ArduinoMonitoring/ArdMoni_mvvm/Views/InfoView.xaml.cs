@@ -10,13 +10,6 @@ namespace ArdMoni_mvvm.Views
         public InfoView()
         {
             InitializeComponent();
-
-            this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
-
-            ShowTitleBar = false;
-            ShowMaxRestoreButton = false;
-            ShowMinButton = false;
-            ShowCloseButton = false;
         }
     }
 }

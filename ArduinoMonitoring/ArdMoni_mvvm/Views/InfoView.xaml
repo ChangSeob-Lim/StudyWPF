@@ -9,7 +9,10 @@
                  xmlns:local="clr-namespace:ArdMoni_mvvm.Views"
                  mc:Ignorable="d" 
                  d:DesignHeight="450" d:DesignWidth="800"
-                 Title="InfoView" Height="300" Width="600" ResizeMode="NoResize"> 
+                 Title="InfoView" Height="300" Width="600" ResizeMode="NoResize" 
+                 ShowCloseButton="False" ShowMaxRestoreButton="False" 
+                 ShowMinButton="False" ShowTitleBar="False" 
+                 WindowStartupLocation="CenterOwner"> 
 
     <Grid>
         <Grid.RowDefinitions>

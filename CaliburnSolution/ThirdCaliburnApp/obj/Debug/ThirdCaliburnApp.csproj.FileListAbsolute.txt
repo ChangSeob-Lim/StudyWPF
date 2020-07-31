@@ -126,3 +126,7 @@ D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MahApps.Metro.I
 D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MahApps.Metro.IconPacks.WeatherIcons.xml
 D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MahApps.Metro.IconPacks.Zondicons.pdb
 D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MahApps.Metro.IconPacks.Zondicons.xml
+D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MvvmDialogs.dll
+D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\bin\Debug\MvvmDialogs.xml
+D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\obj\Debug\Views\DialogView.g.cs
+D:\PKNU2020\StudyWPF\CaliburnSolution\ThirdCaliburnApp\obj\Debug\Views\DialogView.baml

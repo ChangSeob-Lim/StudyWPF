@@ -1,24 +1,11 @@
-﻿using InteractiveDataDisplay.WPF;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Cms;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace ArduinoMonitoring
@@ -174,6 +161,9 @@ namespace ArduinoMonitoring
             BtnConnect.IsEnabled = true;
             BtnDisconnect.IsEnabled = false;
             BtnPortValue.Content = "PORT";
+
+            List<int> reset = new List<int>();
+            PhotoGraph.Plot(reset, reset);
         }
 
         //private void BtnViewAll_Click(object sender, EventArgs e)

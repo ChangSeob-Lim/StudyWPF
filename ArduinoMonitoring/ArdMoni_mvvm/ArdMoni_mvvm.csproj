@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Helpers\Commons.cs" />
+    <Compile Include="Helpers\TextBoxBehaviors.cs" />
     <Compile Include="Models\SensorData.cs" />
     <Compile Include="ViewModels\InfoViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
