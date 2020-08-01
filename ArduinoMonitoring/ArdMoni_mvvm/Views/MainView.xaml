@@ -6,6 +6,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                  xmlns:local="clr-namespace:ArdMoni_mvvm"
                  xmlns:Commons="clr-namespace:ArdMoni_mvvm.Helpers"
                  xmlns:controlzex="urn:controlzex" x:Class="ArdMoni_mvvm.Views.MainView"
@@ -134,13 +135,23 @@
         <!--차트-->
         <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                   Header="차트">
-            <d3:Chart LeftTitle="Photo Value" BottomTitle="Time"
+            <!--<d3:Chart LeftTitle="Photo Value" BottomTitle="Time"
                       Background="WhiteSmoke"
                       Margin="5">
                 <d3:LineGraph Stroke="DarkCyan" StrokeThickness="3">
-                    
+                    <d3:PlotAxis d3:Plot.Points=""></d3:PlotAxis>
                 </d3:LineGraph>
-            </d3:Chart>
+            </d3:Chart>-->
+
+            <lvc:CartesianChart Series="{Binding LineChart}"
+                                Margin="5" >
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Value" MinValue="0" MaxValue="1023"/>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" MinValue="0" MaxValue="200"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
         </GroupBox>
 
         <!--버튼-->

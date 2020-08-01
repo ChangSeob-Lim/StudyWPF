@@ -5,11 +5,11 @@ using MahApps.Metro.Controls;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO.Ports;
-using System.Text;
 using System.Windows.Forms;
-using System.Windows.Input;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System.Windows.Media;
 
 namespace ArdMoni_mvvm.ViewModels
 {
@@ -73,8 +73,8 @@ namespace ArdMoni_mvvm.ViewModels
                 NotifyOfPropertyChange(() => PhotoRegisterValue);
             }
         }
-
-        string photoSubInfo;
+        
+        string photoSubInfo = "PORT";
         public string PhotoSubInfo
         {
             get => photoSubInfo;
@@ -95,9 +95,6 @@ namespace ArdMoni_mvvm.ViewModels
                 NotifyOfPropertyChange(() => DataLog);
             }
         }
-
-        public List<int> xValue = new List<int>();
-        public List<int> yValue = new List<int>();
 
         private short maxPhotoVal = 1023;
 
@@ -127,6 +124,20 @@ namespace ArdMoni_mvvm.ViewModels
             }
         }
 
+        public SeriesCollection LineChart { get; set; }
+
+        int xValue;
+
+        public int XValue
+        {
+            get => xValue;
+            set
+            {
+                xValue = value;
+                NotifyOfPropertyChange(() => XValue);
+            }
+        }
+
         #endregion
 
         private void InitControls()
@@ -138,6 +149,20 @@ namespace ArdMoni_mvvm.ViewModels
             {
                 AllSerialPort.Add(item);
             }
+
+            // 차트
+            LineChart = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "PhotoGraph",
+                    Values = new ChartValues<int>(),
+                    //Stroke = Brushes.Blue,
+                    StrokeThickness = 3,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 5
+                }
+            };
         }
 
         private void SerialSetting()
@@ -145,7 +170,6 @@ namespace ArdMoni_mvvm.ViewModels
             serial = new SerialPort(SelectedSerialPort);
             serial.DataReceived += Serial_DataReceived;
         }
-
         private void Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string sVal = serial.ReadLine();
@@ -172,10 +196,8 @@ namespace ArdMoni_mvvm.ViewModels
                 string item = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{v}";
 
                 DataLog += ($"{item}\n");
-
-                xValue.Add(data.Value);
-                yValue.Add(xValue.Count);
                 //PhotoGraph.Plot(timeValue, photoValue);
+                LineChart[0].Values.Add((int)v);
 
                 if (IsSimulation == false)
                     PhotoSubInfo = $"{serial.PortName}\n{sVal}";
@@ -255,6 +277,8 @@ namespace ArdMoni_mvvm.ViewModels
 
         public void StartSimulation()
         {
+            ConnectedTime = $"연결시간 : {DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}";
+
             IsSimulation = true;
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
