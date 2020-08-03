@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\PKNU2020\StudyWPF\CaliburnSolution\SecondCaliburnApp\obj\Debug\
+C:\Users\Chang\Desktop\PKNU 코딩\StudyWPF\CaliburnSolution\SecondCaliburnApp\obj\Debug\
 SecondCaliburnApp
 none
 false
 DEBUG;TRACE
-D:\PKNU2020\StudyWPF\CaliburnSolution\SecondCaliburnApp\App.xaml
+C:\Users\Chang\Desktop\PKNU 코딩\StudyWPF\CaliburnSolution\SecondCaliburnApp\App.xaml
 3-1791676760
 
-131679171843
-1421291627283
+14836812476
+142-989506080
 Views\FirstChildView.xaml;Views\SecondChildView.xaml;Views\ShellView.xaml;
 
-False
+True
 

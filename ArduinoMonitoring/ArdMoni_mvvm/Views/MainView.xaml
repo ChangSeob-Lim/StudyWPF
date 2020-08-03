@@ -7,12 +7,13 @@
                  xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:local="clr-namespace:ArdMoni_mvvm"
                  xmlns:Commons="clr-namespace:ArdMoni_mvvm.Helpers"
                  xmlns:controlzex="urn:controlzex" x:Class="ArdMoni_mvvm.Views.MainView"
                  mc:Ignorable="d"
                  Title="Arduino PhotoRegister" Height="700" Width="600"
-                 WindowStartupLocation="CenterScreen">
+                 WindowStartupLocation="CenterScreen" Icon="../sensor.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -21,7 +22,7 @@
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="2.4*"/>
             <RowDefinition Height="4*"/>
-            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"/>
             <!--Height="*"-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -32,17 +33,41 @@
         <!--메뉴바-->
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="파일">
-                <MenuItem Header="열기" InputGestureText="Crtl+O"/>
-                <MenuItem Header="저장" InputGestureText="Crtl+S"/>
+                <MenuItem Header="열기" InputGestureText="Crtl+O">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="OpenBook" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="저장" InputGestureText="Crtl+S">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="Save" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="ProgramExit" Header="끝내기" InputGestureText="Alt+F4"/>
+                <MenuItem x:Name="ProgramExit" Header="끝내기" InputGestureText="Alt+F4">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconMaterial Kind="ExitToApp" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="시뮬레이션">
-                <MenuItem x:Name="StartSimulation" Header="시작" InputGestureText="Alt+S"/>
-                <MenuItem x:Name="StopSimulation" Header="중지" InputGestureText="Alt+T"/>
+                <MenuItem x:Name="StartSimulation" Header="시작" InputGestureText="Alt+S">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="Gauge" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="StopSimulation" Header="중지" InputGestureText="Alt+T">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="ControllerStop" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="도움말">
-                <MenuItem x:Name="InfoOpen" Header="정보..."/>
+                <MenuItem x:Name="InfoOpen" Header="정보...">
+                    <MenuItem.Icon>
+                        <iconPacks:PackIconEntypo Kind="Book" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
@@ -135,21 +160,13 @@
         <!--차트-->
         <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                   Header="차트">
-            <!--<d3:Chart LeftTitle="Photo Value" BottomTitle="Time"
-                      Background="WhiteSmoke"
-                      Margin="5">
-                <d3:LineGraph Stroke="DarkCyan" StrokeThickness="3">
-                    <d3:PlotAxis d3:Plot.Points=""></d3:PlotAxis>
-                </d3:LineGraph>
-            </d3:Chart>-->
-
             <lvc:CartesianChart Series="{Binding LineChart}"
                                 Margin="5" >
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Value" MinValue="0" MaxValue="1023"/>
                 </lvc:CartesianChart.AxisY>
                 <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" MinValue="0" MaxValue="200"/>
+                    <lvc:Axis Title="Time" MinValue="{Binding XMinValue}" MaxValue="{Binding XMaxValue}"/>
                 </lvc:CartesianChart.AxisX>
             </lvc:CartesianChart>
         </GroupBox>
@@ -161,12 +178,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0"
-                    Content="VIEW ALL"
+            <Button x:Name="ViewAll" Grid.Column="0"
+                    Content="VIEW ALL" ToolTip="전체 보기"
                     FontSize="20"
                     Width="150" Margin="5" HorizontalAlignment="Right"/>
-            <Button Grid.Column="1"
-                    Content="ZOOM"
+            <Button x:Name="ZoomIn" Grid.Column="1"
+                    Content="ZOOM" ToolTip="최근 5개 보기"
                     FontSize="20"
                     Width="150" Margin="5" HorizontalAlignment="Left"/>
         </Grid>

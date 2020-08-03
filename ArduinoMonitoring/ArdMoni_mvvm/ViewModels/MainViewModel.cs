@@ -20,6 +20,7 @@ namespace ArdMoni_mvvm.ViewModels
         public MainViewModel()
         {
             InitControls();
+            InitCharts();
         }
 
         #endregion
@@ -103,6 +104,29 @@ namespace ArdMoni_mvvm.ViewModels
         Timer timer = new Timer();
         Random rand = new Random();
 
+        bool isBtnConnected = false;
+        public bool IsBtnConnected
+        {
+            get => isBtnConnected;
+            set
+            {
+                isBtnConnected = value;
+                NotifyOfPropertyChange(() => IsBtnConnected);
+                NotifyOfPropertyChange(() => CanConnetPort);
+            }
+        }
+        bool isBtnDisConnected = false;
+        public bool IsBtnDisConnected
+        {
+            get => isBtnDisConnected;
+            set
+            {
+                isBtnDisConnected = value;
+                NotifyOfPropertyChange(() => IsBtnDisConnected);
+                NotifyOfPropertyChange(() => CanDisconnetPort);
+            }
+        }
+
         public BindableCollection<string> AllSerialPort { get; set; }
         
         string selectedSerialPort;
@@ -126,15 +150,34 @@ namespace ArdMoni_mvvm.ViewModels
 
         public SeriesCollection LineChart { get; set; }
 
-        int xValue;
-
-        public int XValue
+        int xMinValue = 0;
+        public int XMinValue
         {
-            get => xValue;
+            get => xMinValue;
             set
             {
-                xValue = value;
-                NotifyOfPropertyChange(() => XValue);
+                xMinValue = value;
+                NotifyOfPropertyChange(() => XMinValue);
+            }
+        }
+        int xMaxValue = 5;
+        public int XMaxValue
+        {
+            get => xMaxValue;
+            set
+            {
+                xMaxValue = value;
+                NotifyOfPropertyChange(() => XMaxValue);
+            }
+        }
+
+        bool isZoom = false;
+        public bool IsZoom
+        {
+            get => isZoom;
+            set
+            {
+                isZoom = value;
             }
         }
 
@@ -149,7 +192,10 @@ namespace ArdMoni_mvvm.ViewModels
             {
                 AllSerialPort.Add(item);
             }
+        }
 
+        private void InitCharts()
+        {
             // 차트
             LineChart = new SeriesCollection
             {
@@ -169,6 +215,8 @@ namespace ArdMoni_mvvm.ViewModels
         {
             serial = new SerialPort(SelectedSerialPort);
             serial.DataReceived += Serial_DataReceived;
+
+            IsBtnConnected = true;
         }
         private void Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -196,8 +244,12 @@ namespace ArdMoni_mvvm.ViewModels
                 string item = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{v}";
 
                 DataLog += ($"{item}\n");
-                //PhotoGraph.Plot(timeValue, photoValue);
+
+                if(IsZoom)
+                    XMinValue = photoDatas.Count < 5 ? 0 : photoDatas.Count - 5;
+
                 LineChart[0].Values.Add((int)v);
+                XMaxValue = photoDatas.Count < 5 ? 5 : photoDatas.Count;
 
                 if (IsSimulation == false)
                     PhotoSubInfo = $"{serial.PortName}\n{sVal}";
@@ -207,7 +259,6 @@ namespace ArdMoni_mvvm.ViewModels
             catch (Exception ex)
             {
                 DataLog += ($"Error : {ex.Message}\n");
-                //TxtLog.ScrollToEnd();
             }
         }
 
@@ -238,21 +289,30 @@ namespace ArdMoni_mvvm.ViewModels
 
         public bool CanConnetPort
         {
-            get => (serial != null);
+            get => (serial != null) && IsBtnConnected;
         }
 
         public void ConnetPort()
         {
             timer.Stop();
+            timer = new Timer();
             if (serial != null)
                 serial.Open();
 
             ConnectedTime = $"연결시간 : {DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}";
+
+            XMinValue = 0;
+            XMaxValue = 5;
+            LineChart[0].Values = new ChartValues<int>();
+            photoDatas.Clear();
+
+            IsBtnConnected = false;
+            IsBtnDisConnected = true;
         }
 
         public bool CanDisconnetPort
         {
-            get => (serial != null);
+            get => (serial != null) && IsBtnDisConnected;
         }
 
         public void DisconnetPort()
@@ -266,8 +326,8 @@ namespace ArdMoni_mvvm.ViewModels
             PhotoValue = 0;
             PhotoRegisterValue = string.Empty;
 
-            //List<int> reset = new List<int>();
-            //PhotoGraph.Plot(reset, reset);
+            IsBtnConnected = true;
+            IsBtnDisConnected = false;
         }
 
         public void ProgramExit()
@@ -278,6 +338,11 @@ namespace ArdMoni_mvvm.ViewModels
         public void StartSimulation()
         {
             ConnectedTime = $"연결시간 : {DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}";
+
+            XMinValue = 0;
+            XMaxValue = 5;
+            LineChart[0].Values = new ChartValues<int>();
+            photoDatas.Clear();
 
             IsSimulation = true;
             timer.Interval = 1000;
@@ -298,6 +363,7 @@ namespace ArdMoni_mvvm.ViewModels
         public void StopSimulation()
         {
             timer.Stop();
+            timer = new Timer();
             IsSimulation = false;
             PhotoSubInfo = "PORT";
             ConnectedTime = string.Empty;
@@ -311,6 +377,20 @@ namespace ArdMoni_mvvm.ViewModels
         {
             IWindowManager btninfo = new WindowManager();
             btninfo.ShowDialog(new InfoViewModel(), null, null);
+        }
+
+        public void ViewAll()
+        {
+            IsZoom = false;
+            XMinValue = 0;
+            XMaxValue = photoDatas.Count < 5 ? 5 : photoDatas.Count;
+        }
+
+        public void ZoomIn()
+        {
+            IsZoom = true;
+            XMinValue = photoDatas.Count < 5 ? 0 : photoDatas.Count - 5;
+            XMaxValue = photoDatas.Count < 5 ? 5 : photoDatas.Count;
         }
     }
 }

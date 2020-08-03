@@ -60,16 +60,16 @@
                        Text="회사 이름 : " FontWeight="Black" TextAlignment="Right"
                        Margin="5, 0" VerticalAlignment="Center"/>
 
-                <TextBlock x:Name="TxtProductName" Grid.Row="0" Grid.Column="1" 
+                <TextBlock x:Name="ProductName" Grid.Row="0" Grid.Column="1" 
                        TextAlignment="Left"
                        Margin="5, 0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TxtVersion" Grid.Row="1" Grid.Column="1" 
+                <TextBlock x:Name="Version" Grid.Row="1" Grid.Column="1" 
                        TextAlignment="Left"
                        Margin="5, 0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TxtCopyright" Grid.Row="2" Grid.Column="1" 
+                <TextBlock x:Name="Copyright" Grid.Row="2" Grid.Column="1" 
                        TextAlignment="Left"
                        Margin="5, 0" VerticalAlignment="Center"/>
-                <TextBlock x:Name="TxtCompanyName" Grid.Row="3" Grid.Column="1" 
+                <TextBlock x:Name="CompanyName" Grid.Row="3" Grid.Column="1" 
                        TextAlignment="Left"
                        Margin="5, 0" VerticalAlignment="Center"/>
             </Grid>
@@ -78,7 +78,7 @@
         <!--설명-->
         <GroupBox Grid.Row="1" Grid.Column="1"
                   Header="설명">
-            <TextBox x:Name="TxtDescription" 
+            <TextBox x:Name="Description" 
                      TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"
                      Margin="5"/>
         </GroupBox>
