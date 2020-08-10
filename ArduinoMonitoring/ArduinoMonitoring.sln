@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoMonitoring", "Arduin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArdMoni_mvvm", "ArdMoni_mvvm\ArdMoni_mvvm.csproj", "{1FE2E509-96F0-4F49-9924-D35AD003C81F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringApp", "MonitoringApp\MonitoringApp.csproj", "{678B09FF-7269-4095-A31F-D05B651DA50D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE2E509-96F0-4F49-9924-D35AD003C81F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678B09FF-7269-4095-A31F-D05B651DA50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678B09FF-7269-4095-A31F-D05B651DA50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678B09FF-7269-4095-A31F-D05B651DA50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678B09FF-7269-4095-A31F-D05B651DA50D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

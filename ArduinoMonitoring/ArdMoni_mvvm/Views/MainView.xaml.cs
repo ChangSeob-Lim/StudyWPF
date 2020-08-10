@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using LiveCharts;
 
 namespace ArdMoni_mvvm.Views
 {

@@ -23,7 +23,6 @@
             <RowDefinition Height="2.4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
-            <!--Height="*"-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -187,5 +186,7 @@
                     FontSize="20"
                     Width="150" Margin="5" HorizontalAlignment="Left"/>
         </Grid>
+        
+        
     </Grid>
 </mah:MetroWindow>

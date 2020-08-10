@@ -1,0 +1,89 @@
+﻿<mah:MetroWindow    x:Class="MonitoringApp.Views.InfoView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:local="clr-namespace:MonitoringApp.Views"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    mc:Ignorable="d"
+                    Title="InfoView" Height="300" Width="600" ResizeMode="NoResize" 
+                    ShowCloseButton="False" ShowMaxRestoreButton="False" 
+                    ShowMinButton="False" ShowTitleBar="False" 
+                    WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--이미지-->
+        <GroupBox Header=""
+                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="3">
+            <Image Source="../Resources/images.png"
+               Margin="10"/>
+        </GroupBox>
+
+        <!--정보-->
+        <GroupBox  Grid.Row="0" Grid.Column="1"
+                   Header="정보">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Text="제품 이름 : " FontWeight="Black" TextAlignment="Right"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Text="버전 : " FontWeight="Black" TextAlignment="Right"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" 
+                       Text="저작권 : " FontWeight="Black" TextAlignment="Right"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" 
+                       Text="회사 이름 : " FontWeight="Black" TextAlignment="Right"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+
+                <TextBlock x:Name="ProductName" Grid.Row="0" Grid.Column="1" 
+                       TextAlignment="Left"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Version" Grid.Row="1" Grid.Column="1" 
+                       TextAlignment="Left"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Copyright" Grid.Row="2" Grid.Column="1" 
+                       TextAlignment="Left"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="CompanyName" Grid.Row="3" Grid.Column="1" 
+                       TextAlignment="Left"
+                       Margin="5, 0" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <!--설명-->
+        <GroupBox Grid.Row="1" Grid.Column="1"
+                  Header="설명">
+            <TextBox x:Name="Description" 
+                     TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"
+                     Margin="5"/>
+        </GroupBox>
+
+        <!--버튼-->
+        <Button x:Name="BtnClose" 
+                Grid.Row="2" Grid.Column="1"
+                Content="확인(O)" IsCancel="True"
+                Width="80"
+                Margin="10, 5" HorizontalAlignment="Right"/>
+    </Grid>
+</mah:MetroWindow>
