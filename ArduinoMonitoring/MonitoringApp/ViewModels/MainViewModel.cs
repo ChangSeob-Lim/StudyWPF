@@ -41,10 +41,7 @@ namespace MonitoringApp.ViewModels
             get
             {
                 if(startSimulationCommand == null)
-                {
                     startSimulationCommand = new RelayCommand(StartSimulation);
-                    
-                }
 
                 return startSimulationCommand;
             }
@@ -56,9 +53,7 @@ namespace MonitoringApp.ViewModels
             get
             {
                 if (stopSimulationCommand == null)
-                {
                     stopSimulationCommand = new RelayCommand(StopSimulation);
-                }
 
                 return stopSimulationCommand;
             }
@@ -70,9 +65,7 @@ namespace MonitoringApp.ViewModels
             get
             {
                 if(programExitCommand == null)
-                {
                     programExitCommand = new RelayCommand(ProgramExit);
-                }
 
                 return programExitCommand;
             }
@@ -84,9 +77,7 @@ namespace MonitoringApp.ViewModels
             get
             {
                 if (openAllDataCommand == null)
-                {
                     openAllDataCommand = new RelayCommand(OpenAllData);
-                }
 
                 return openAllDataCommand;
             }
